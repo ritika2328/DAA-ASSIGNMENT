@@ -1,0 +1,44 @@
+from bisect import bisect_right as upper_bound
+
+# Function To Find Median In The Matrix
+def Median( matrix , rows , cols ):
+    min = matrix[0][0]
+    max = 0
+
+    for i in range(rows):
+        if matrix[i][0] < min:
+            min = matrix[i][0]
+        if matrix[i][cols-1] > max :
+            max = matrix[i][cols-1]
+
+    desired = (rows * cols + 1) // 2
+
+    while (min < max):
+        mid = min + (max - min) // 2
+        index = [0];
+        for i in range(rows):
+            j = upper_bound(matrix[i], mid)
+            index[0] = index[0] + j
+        if index[0] < desired:
+            min = mid + 1
+        else:
+            max = mid
+    print ("Median is : ", min)
+    return
+
+# Input Of The Matrix
+rows = int(input("Enter no.of rows:"))
+cols = int(input("Enter no.of Columns:"))
+print("Enter the elements of the array : ")
+matrix = []
+for i in range(rows):
+    a = []
+    for j in range(cols):
+        a.append(int(input()))
+    matrix.append(a)
+Median( matrix , rows , cols )
+
+
+
+
+
